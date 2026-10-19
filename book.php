@@ -13,6 +13,11 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
+if (empty($_SESSION['user_id'])) {
+    header('Location: login.php');
+    exit;
+}
+
 $service_type   = trim($_POST['service_type'] ?? 'ride');
 $name           = trim($_POST['passenger_name'] ?? '');
 $phone          = trim($_POST['phone'] ?? '');

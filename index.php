@@ -6,6 +6,14 @@
 
 if (session_status() === PHP_SESSION_NONE) session_start();
 
+// Require a logged-in customer before showing the booking page.
+// Without this, index.php was reachable directly and nothing ever
+// sent a first-time visitor to login.php.
+if (empty($_SESSION['user_id'])) {
+    header('Location: login.php');
+    exit;
+}
+
 require_once __DIR__ . '/config/db.php';
 $fares = require __DIR__ . '/config/fares.php';
 
@@ -51,7 +59,9 @@ unset($_SESSION['booking_error'], $_SESSION['booking_success']);
         <ul class="navbar-links">
             <li><a href="index.php" class="active">Book Ride / Parcel</a></li>
             <li><a href="captain/dashboard.php">Captain Portal 🛵</a></li>
-            <li><a href="admin/login.php">Admin Panel 🔒</a></li>
+            <li><a href="login.php">Admin Panel 🔒</a></li>
+            <li style="color:var(--clr-muted);">Hi, <?= htmlspecialchars($_SESSION['user_name'] ?? 'Rider') ?></li>
+            <li><a href="logout.php">Log Out</a></li>
         </ul>
     </div>
 </nav>
@@ -103,6 +113,7 @@ unset($_SESSION['booking_error'], $_SESSION['booking_success']);
                             <label for="passenger_name">Your Name</label>
                             <input type="text" id="passenger_name" name="passenger_name"
                                    class="form-control" placeholder="e.g. Aryan Chougule"
+                                   value="<?= htmlspecialchars($_SESSION['user_name'] ?? '') ?>"
                                    maxlength="100" required>
                         </div>
                         <div class="form-group">

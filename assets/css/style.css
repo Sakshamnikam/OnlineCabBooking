@@ -1,0 +1,450 @@
+/* ============================================================
+   RYDO — Online Bike Taxi, Cab & Parcel Delivery Platform
+   Mini-Project-I (UCBIL0371) | Dept of CSBS, KITCoEK
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+    --clr-bg:        #0c0f17;
+    --clr-surface:   #141923;
+    --clr-surface-2: #1c2333;
+    --clr-glass:     rgba(255, 255, 255, 0.04);
+    --clr-glass-hov: rgba(255, 255, 255, 0.08);
+    --clr-border:    rgba(255, 255, 255, 0.10);
+    
+    /* RYDO Electric Neon / Amber Brand Theme */
+    --clr-primary:   #ffaa00;   /* Vibrant Rapid Gold/Amber */
+    --clr-primary-l: #ffc44d;
+    --clr-accent:    #00e5ff;   /* Neon Cyan for GPS/Tech */
+    --clr-text:      #f0f3fa;
+    --clr-muted:     #8e9ab0;
+    --clr-success:   #00e676;
+    --clr-danger:    #ff3366;
+    --clr-warning:   #ff9100;
+
+    --radius-sm:  8px;
+    --radius-md:  14px;
+    --radius-lg:  22px;
+    --shadow:     0 12px 36px rgba(0, 0, 0, 0.55);
+    --font:       'Plus Jakarta Sans', -apple-system, sans-serif;
+    --transition: 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+    font-family: var(--font);
+    background: var(--clr-bg);
+    color: var(--clr-text);
+    min-height: 100vh;
+    line-height: 1.6;
+}
+
+a { color: var(--clr-primary); text-decoration: none; transition: var(--transition); }
+a:hover { color: var(--clr-primary-l); }
+
+.container { width: 100%; max-width: 1180px; margin: 0 auto; padding: 0 1.25rem; }
+.text-center { text-align: center; }
+.text-muted  { color: var(--clr-muted); }
+.text-primary { color: var(--clr-primary); }
+
+/* ---------- NAVBAR ---------- */
+.navbar {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: rgba(12, 15, 23, 0.88);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--clr-border);
+    padding: 0.85rem 0;
+}
+.navbar .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.navbar-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: #fff;
+    letter-spacing: -0.02em;
+}
+.navbar-brand span { color: var(--clr-primary); }
+.brand-icon {
+    width: 38px; height: 38px;
+    background: linear-gradient(135deg, var(--clr-primary), #ff6d00);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.3rem;
+    box-shadow: 0 0 15px rgba(255, 170, 0, 0.4);
+}
+.college-badge {
+    font-size: 0.7rem;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid var(--clr-border);
+    padding: 0.2rem 0.6rem;
+    border-radius: 99px;
+    color: var(--clr-muted);
+    font-weight: 500;
+}
+.navbar-links {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    list-style: none;
+}
+.navbar-links a {
+    color: var(--clr-muted);
+    font-size: 0.9rem;
+    font-weight: 600;
+    padding: 0.4rem 0.8rem;
+    border-radius: var(--radius-sm);
+    transition: var(--transition);
+}
+.navbar-links a:hover,
+.navbar-links a.active {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.06);
+}
+
+/* ---------- HERO ---------- */
+.hero {
+    position: relative;
+    padding: 4.5rem 0 3.5rem;
+    text-align: center;
+    background: radial-gradient(circle at 50% -20%, rgba(255, 170, 0, 0.18) 0%, transparent 65%);
+}
+.hero-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(255, 170, 0, 0.12);
+    border: 1px solid rgba(255, 170, 0, 0.35);
+    color: var(--clr-primary);
+    font-size: 0.78rem;
+    font-weight: 700;
+    padding: 0.35rem 1rem;
+    border-radius: 99px;
+    margin-bottom: 1.2rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+.hero h1 {
+    font-size: clamp(2.2rem, 5vw, 3.8rem);
+    font-weight: 800;
+    line-height: 1.15;
+    margin-bottom: 1rem;
+    letter-spacing: -0.03em;
+}
+.hero h1 span {
+    background: linear-gradient(135deg, var(--clr-primary), #ff7700);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.hero p {
+    color: var(--clr-muted);
+    font-size: 1.08rem;
+    max-width: 620px;
+    margin: 0 auto 2rem;
+}
+
+/* ---------- SERVICE SWITCHER TABS ---------- */
+.service-tabs-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1.8rem;
+}
+.service-tabs {
+    display: inline-flex;
+    background: var(--clr-surface-2);
+    padding: 0.35rem;
+    border-radius: 99px;
+    border: 1px solid var(--clr-border);
+    gap: 0.3rem;
+}
+.service-tab {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.65rem 1.6rem;
+    border-radius: 99px;
+    border: none;
+    font-family: var(--font);
+    font-size: 0.92rem;
+    font-weight: 700;
+    color: var(--clr-muted);
+    background: transparent;
+    cursor: pointer;
+    transition: var(--transition);
+}
+.service-tab.active {
+    background: var(--clr-primary);
+    color: #000;
+    box-shadow: 0 4px 18px rgba(255, 170, 0, 0.4);
+}
+
+/* ---------- CARDS & FORM ---------- */
+.card {
+    background: var(--clr-glass);
+    border: 1px solid var(--clr-border);
+    border-radius: var(--radius-lg);
+    backdrop-filter: blur(14px);
+    padding: 2rem;
+    box-shadow: var(--shadow);
+}
+.booking-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 2rem;
+    align-items: start;
+}
+@media (max-width: 920px) {
+    .booking-grid { grid-template-columns: 1fr; }
+}
+
+.section-title { font-size: 1.6rem; font-weight: 800; margin-bottom: 0.25rem; }
+.section-subtitle { color: var(--clr-muted); font-size: 0.92rem; margin-bottom: 1.6rem; }
+
+.form-group { margin-bottom: 1.2rem; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+@media (max-width: 580px) { .form-row { grid-template-columns: 1fr; } }
+
+label {
+    display: block;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--clr-muted);
+    margin-bottom: 0.4rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+.form-control {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1.5px solid var(--clr-border);
+    border-radius: var(--radius-sm);
+    color: var(--clr-text);
+    font-family: var(--font);
+    font-size: 0.95rem;
+    padding: 0.75rem 1rem;
+    outline: none;
+    transition: var(--transition);
+}
+.form-control:focus {
+    border-color: var(--clr-primary);
+    box-shadow: 0 0 0 3px rgba(255, 170, 0, 0.18);
+}
+select.form-control { cursor: pointer; }
+
+/* Vehicle Options Cards */
+.vehicle-selector {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.8rem;
+    margin-bottom: 1.3rem;
+}
+@media (max-width: 540px) { .vehicle-selector { grid-template-columns: 1fr; } }
+
+.vehicle-radio { position: relative; cursor: pointer; }
+.vehicle-radio input { position: absolute; opacity: 0; width: 0; height: 0; }
+.vehicle-card {
+    border: 1.5px solid var(--clr-border);
+    border-radius: var(--radius-md);
+    padding: 1rem;
+    background: var(--clr-glass);
+    transition: var(--transition);
+    text-align: center;
+}
+.vehicle-radio input:checked + .vehicle-card {
+    border-color: var(--clr-primary);
+    background: rgba(255, 170, 0, 0.08);
+    box-shadow: 0 0 0 2px rgba(255, 170, 0, 0.25);
+}
+.vehicle-icon { font-size: 2rem; margin-bottom: 0.3rem; }
+.vehicle-name { font-weight: 700; font-size: 0.95rem; }
+.vehicle-rate { font-size: 0.78rem; color: var(--clr-primary); font-weight: 600; margin-top: 0.25rem; }
+.vehicle-desc { font-size: 0.72rem; color: var(--clr-muted); margin-top: 0.2rem; }
+
+/* Fare Preview Box */
+.fare-preview {
+    background: rgba(255, 170, 0, 0.06);
+    border: 1px dashed rgba(255, 170, 0, 0.35);
+    border-radius: var(--radius-md);
+    padding: 1.2rem;
+    margin-bottom: 1.4rem;
+}
+.fare-header-preview {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.4rem;
+}
+.fare-amount { font-size: 2.1rem; font-weight: 800; color: var(--clr-primary); }
+.fare-meta { font-size: 0.85rem; color: var(--clr-muted); }
+.fare-note { font-size: 0.76rem; color: #ffb74d; margin-top: 0.4rem; }
+
+/* Buttons */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.8rem 1.6rem;
+    border-radius: var(--radius-sm);
+    font-family: var(--font);
+    font-size: 0.95rem;
+    font-weight: 700;
+    cursor: pointer;
+    border: none;
+    transition: var(--transition);
+    text-decoration: none;
+}
+.btn-primary {
+    background: linear-gradient(135deg, var(--clr-primary), #ff7700);
+    color: #000;
+    box-shadow: 0 6px 24px rgba(255, 170, 0, 0.35);
+    width: 100%;
+}
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(255, 170, 0, 0.5);
+    color: #000;
+}
+.btn-secondary {
+    background: var(--clr-surface-2);
+    color: var(--clr-text);
+    border: 1px solid var(--clr-border);
+}
+.btn-secondary:hover { background: rgba(255, 255, 255, 0.1); color: #fff; }
+.btn-danger  { background: var(--clr-danger); color: #fff; }
+.btn-success { background: var(--clr-success); color: #000; }
+.btn-sm { padding: 0.4rem 0.85rem; font-size: 0.82rem; }
+
+/* Status Badges */
+.badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.3rem 0.8rem;
+    border-radius: 99px;
+    font-size: 0.76rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+.badge-pending   { background: rgba(255, 145, 0, 0.18); color: #ff9100; border: 1px solid rgba(255, 145, 0, 0.4); }
+.badge-accepted  { background: rgba(0, 229, 255, 0.18); color: #00e5ff; border: 1px solid rgba(0, 229, 255, 0.4); }
+.badge-in_progress { background: rgba(156, 39, 176, 0.18); color: #ba68c8; border: 1px solid rgba(156, 39, 176, 0.4); }
+.badge-completed { background: rgba(0, 230, 118, 0.18); color: #00e676; border: 1px solid rgba(0, 230, 118, 0.4); }
+.badge-cancelled { background: rgba(255, 51, 102, 0.18); color: #ff3366; border: 1px solid rgba(255, 51, 102, 0.4); }
+
+/* OTP Box for Trip Security */
+.otp-display-box {
+    background: linear-gradient(135deg, rgba(255, 170, 0, 0.15), rgba(0, 229, 255, 0.1));
+    border: 1.5px solid var(--clr-primary);
+    border-radius: var(--radius-md);
+    padding: 1.5rem;
+    text-align: center;
+    margin: 1.5rem 0;
+}
+.otp-code {
+    font-size: 2.8rem;
+    font-weight: 800;
+    letter-spacing: 0.3em;
+    color: var(--clr-primary);
+    font-family: monospace;
+    margin: 0.4rem 0;
+}
+
+/* SOS Safety Button (SRS 4.3) */
+.sos-btn {
+    background: linear-gradient(135deg, #ff1744, #d50000);
+    color: #fff;
+    border: none;
+    border-radius: 99px;
+    padding: 0.6rem 1.4rem;
+    font-weight: 800;
+    font-size: 0.85rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    box-shadow: 0 0 20px rgba(255, 23, 68, 0.4);
+    animation: sosPulse 2s infinite;
+}
+@keyframes sosPulse {
+    0% { box-shadow: 0 0 0 0 rgba(255, 23, 68, 0.6); }
+    70% { box-shadow: 0 0 0 14px rgba(255, 23, 68, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(255, 23, 68, 0); }
+}
+
+/* Live GPS Simulation Visualizer */
+.gps-tracker-card {
+    background: #090c13;
+    border: 1px solid var(--clr-border);
+    border-radius: var(--radius-md);
+    padding: 1.4rem;
+    margin: 1.5rem 0;
+    position: relative;
+    overflow: hidden;
+}
+.gps-route-line {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    margin: 2.5rem 1rem 1rem;
+}
+.gps-route-line::before {
+    content: '';
+    position: absolute;
+    left: 10px; right: 10px; top: 50%;
+    height: 4px;
+    background: repeating-linear-gradient(90deg, var(--clr-primary), var(--clr-primary) 8px, transparent 8px, transparent 14px);
+    z-index: 1;
+}
+.gps-point {
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    background: var(--clr-surface-2);
+    border: 3px solid var(--clr-primary);
+    z-index: 2;
+    position: relative;
+}
+.gps-point.active {
+    background: var(--clr-primary);
+    box-shadow: 0 0 14px var(--clr-primary);
+}
+.gps-bike-marker {
+    position: absolute;
+    left: 45%;
+    top: -22px;
+    font-size: 1.8rem;
+    z-index: 3;
+    animation: floatMarker 2s ease-in-out infinite alternate;
+}
+@keyframes floatMarker {
+    0% { transform: translateY(0px) rotate(0deg); }
+    100% { transform: translateY(-4px) rotate(2deg); }
+}
+
+/* Footer */
+footer {
+    background: #07090e;
+    border-top: 1px solid var(--clr-border);
+    padding: 2.5rem 0;
+    text-align: center;
+    color: var(--clr-muted);
+    font-size: 0.85rem;
+    margin-top: 4rem;
+}
+footer strong { color: var(--clr-primary); }
+footer .team-credits {
+    margin-top: 0.6rem;
+    font-size: 0.78rem;
+    color: #6c7891;
+}

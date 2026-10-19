@@ -1,0 +1,65 @@
+/* ============================================================
+   Online Cab Booking — admin.css
+   Supplementary styles for the admin panel only
+   ============================================================ */
+
+/* Sidebar layout (future-proof; dashboard uses full-width for now) */
+.admin-page { padding: 2rem 0 4rem; }
+
+.admin-heading {
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: .25rem;
+}
+.admin-subheading {
+    font-size: .88rem;
+    color: var(--clr-muted);
+    margin-bottom: 2rem;
+}
+
+/* Filter bar */
+.filter-bar {
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.3rem;
+}
+.filter-bar input,
+.filter-bar select {
+    background: rgba(255,255,255,.04);
+    border: 1px solid var(--clr-border);
+    border-radius: var(--radius-sm);
+    color: var(--clr-text);
+    font-family: var(--font);
+    font-size: .88rem;
+    padding: .5rem .9rem;
+    outline: none;
+    transition: border-color var(--transition);
+}
+.filter-bar input:focus,
+.filter-bar select:focus { border-color: var(--clr-accent); }
+
+/* Pagination */
+.pagination {
+    display: flex;
+    gap: .4rem;
+    margin-top: 1.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.page-btn {
+    background: var(--clr-glass);
+    border: 1px solid var(--clr-border);
+    color: var(--clr-text);
+    border-radius: var(--radius-sm);
+    padding: .4rem .85rem;
+    font-size: .85rem;
+    cursor: pointer;
+    font-family: var(--font);
+    transition: background var(--transition), border-color var(--transition);
+    text-decoration: none;
+    display: inline-block;
+}
+.page-btn:hover,
+.page-btn.active { background: var(--clr-accent); border-color: var(--clr-accent); color: #fff; }

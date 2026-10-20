@@ -58,8 +58,8 @@ unset($_SESSION['booking_error'], $_SESSION['booking_success']);
         </a>
         <ul class="navbar-links">
             <li><a href="index.php" class="active">Book Ride / Parcel</a></li>
-            <li><a href="captain/dashboard.php">Captain Portal 🛵</a></li>
-            <li><a href="login.php">Admin Panel 🔒</a></li>
+            <li><a href="captain/login.php">Captain Portal 🛵</a></li>
+            <li><a href="login.php?role=admin">Admin Panel 🔒</a></li>
             <li style="color:var(--clr-muted);">Hi, <?= htmlspecialchars($_SESSION['user_name'] ?? 'Rider') ?></li>
             <li><a href="logout.php">Log Out</a></li>
         </ul>
@@ -272,7 +272,7 @@ unset($_SESSION['booking_error'], $_SESSION['booking_success']);
                 <div class="card">
                     <h3 style="font-size: 1rem; font-weight:700; margin-bottom:0.7rem;">⚡ Quick Portals</h3>
                     <div style="display:flex; flex-direction:column; gap:0.6rem;">
-                        <a href="captain/dashboard.php" class="btn btn-secondary btn-sm" style="justify-content:flex-start;">
+                        <a href="captain/login.php" class="btn btn-secondary btn-sm" style="justify-content:flex-start;">
                             🛵 Captain Partner App &amp; Accept Rides
                         </a>
                         <a href="admin/login.php" class="btn btn-secondary btn-sm" style="justify-content:flex-start;">

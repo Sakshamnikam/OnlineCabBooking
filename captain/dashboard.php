@@ -112,8 +112,6 @@ unset($_SESSION['cap_flash'], $_SESSION['cap_error']);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Captain Partner Dashboard — RYDO</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../assets/css/style.css">
     <link rel="stylesheet" href="../assets/css/admin.css">
 </head>
@@ -121,15 +119,15 @@ unset($_SESSION['cap_flash'], $_SESSION['cap_error']);
 
 <nav class="admin-navbar">
     <div class="container">
-        <div style="display:flex; align-items:center; gap:0.6rem;">
-            <span class="brand-icon" style="width:32px; height:32px; font-size:1.1rem;">🛵</span>
-            <span style="font-weight:800; font-size:1.2rem; color:#fff;">RYDO Captain Partner</span>
+        <div class="admin-navbar-brand">
+            <span class="brand-icon">C</span>
+            <span class="admin-navbar-title">RYDO Captain Partner</span>
         </div>
-        <div style="display:flex; align-items:center; gap:1rem;">
-            <span style="font-size:0.85rem; color:var(--clr-muted);">Hi, <?= htmlspecialchars($captain['name']) ?></span>
-            <a href="../index.php" class="btn btn-secondary btn-sm">🏠 Rider App</a>
-            <a href="../login.php?role=admin" class="btn btn-secondary btn-sm">🔒 Admin Panel</a>
-            <a href="logout.php" class="btn btn-secondary btn-sm">🚪 Log Out</a>
+        <div class="admin-navbar-actions">
+            <span class="admin-user">Hi, <?= htmlspecialchars($captain['name']) ?></span>
+            <a href="../index.php" class="btn btn-secondary btn-sm">Rider App</a>
+            <a href="../login.php?role=admin" class="btn btn-secondary btn-sm">Admin Panel</a>
+            <a href="logout.php" class="btn btn-secondary btn-sm">Log Out</a>
         </div>
     </div>
 </nav>
@@ -138,140 +136,121 @@ unset($_SESSION['cap_flash'], $_SESSION['cap_error']);
     <div class="container">
 
         <?php if ($flash): ?>
-            <div class="alert alert-success" style="background:rgba(0,230,118,0.15); border:1px solid rgba(0,230,118,0.3); color:#00e676; padding:0.8rem 1.2rem; border-radius:8px; margin-bottom:1.2rem;">
-                <?= htmlspecialchars($flash) ?>
-            </div>
+            <div class="alert alert-success"><?= htmlspecialchars($flash) ?></div>
         <?php endif; ?>
         <?php if ($error): ?>
-            <div class="alert alert-error" style="background:rgba(255,51,102,0.15); border:1px solid rgba(255,51,102,0.3); color:#ff3366; padding:0.8rem 1.2rem; border-radius:8px; margin-bottom:1.2rem;">
-                <?= htmlspecialchars($error) ?>
-            </div>
+            <div class="alert alert-error"><?= htmlspecialchars($error) ?></div>
         <?php endif; ?>
 
-        <!-- CAPTAIN PROFILE & DUTY TOGGLE CARD -->
-        <div class="card" style="margin-bottom:1.5rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1.2rem;">
-            <div style="display:flex; align-items:center; gap:1rem;">
-                <div style="width:52px; height:52px; border-radius:50%; background:linear-gradient(135deg, var(--clr-primary), #ff6d00); color:#000; font-size:1.6rem; display:flex; align-items:center; justify-content:center; font-weight:800;">
+        <div class="card profile-card">
+            <div class="profile-main">
+                <div class="avatar avatar-lg">
                     <?= strtoupper(substr($captain['name'], 0, 1)) ?>
                 </div>
                 <div>
-                    <h2 style="font-size:1.2rem; font-weight:800; color:#fff;"><?= htmlspecialchars($captain['name']) ?></h2>
-                    <p style="font-size:0.82rem; color:var(--clr-muted);">
-                        Vehicle: <strong><?= htmlspecialchars($captain['vehicle_number']) ?></strong> (<?= htmlspecialchars($captain['vehicle_type']) ?>) •
-                        Lic: <code><?= htmlspecialchars($captain['license_number']) ?></code>
+                    <h2><?= htmlspecialchars($captain['name']) ?></h2>
+                    <p>
+                        Vehicle: <strong><?= htmlspecialchars($captain['vehicle_number']) ?></strong> (<?= htmlspecialchars($captain['vehicle_type']) ?>)
+                        • Lic: <code><?= htmlspecialchars($captain['license_number']) ?></code>
                     </p>
-                    <div style="margin-top:0.3rem;">
+                    <div class="profile-badges">
                         <span class="badge badge-<?= ($captain['kyc_status'] === 'Approved') ? 'completed' : 'pending' ?>">
                             KYC: <?= htmlspecialchars($captain['kyc_status']) ?>
                         </span>
-                        <span style="font-size:0.82rem; color:#ffc44d; font-weight:600; margin-left:0.5rem;">
-                            ⭐ <?= htmlspecialchars($captain['rating']) ?> Rating
-                        </span>
+                        <span class="rating-text"><?= htmlspecialchars($captain['rating']) ?> rating</span>
                     </div>
                 </div>
             </div>
 
-            <!-- DUTY TOGGLE FORM (SRS Section 3.1) -->
-            <form method="POST" style="display:flex; align-items:center; gap:0.8rem;">
+            <form method="POST">
                 <input type="hidden" name="toggle_online" value="1">
                 <input type="hidden" name="is_online" value="<?= $captain['is_online'] ? '0' : '1' ?>">
-                <button type="submit" class="btn <?= $captain['is_online'] ? 'btn-success' : 'btn-secondary' ?>" style="padding:0.6rem 1.4rem;">
-                    <?= $captain['is_online'] ? '🟢 ON DUTY (Online)' : '⚪ OFF DUTY (Offline)' ?>
+                <button type="submit" class="btn <?= $captain['is_online'] ? 'btn-success' : 'btn-secondary' ?>">
+                    <?= $captain['is_online'] ? 'On duty (Online)' : 'Off duty (Offline)' ?>
                 </button>
             </form>
         </div>
 
-        <!-- EARNINGS STATS (SRS Section 1.4 & 5.5) -->
         <div class="admin-stats">
             <div class="stat-card">
-                <div class="stat-icon total">💰</div>
+                <div class="stat-icon">Rs</div>
                 <div>
-                    <div class="stat-value" style="color:var(--clr-primary);">₹<?= number_format((float)$captain['total_earnings'], 2) ?></div>
-                    <div class="stat-label">Total Earnings (80% Net)</div>
+                    <div class="stat-value">₹<?= number_format((float)$captain['total_earnings'], 2) ?></div>
+                    <div class="stat-label">Total earnings (80% net)</div>
                 </div>
             </div>
             <div class="stat-card">
-                <div class="stat-icon confirmed">🛵</div>
+                <div class="stat-icon">Done</div>
                 <div>
                     <div class="stat-value"><?= count($completed_trips) ?></div>
-                    <div class="stat-label">Recent Completed Trips</div>
+                    <div class="stat-label">Recent completed trips</div>
                 </div>
             </div>
             <div class="stat-card">
-                <div class="stat-icon pending">⚡</div>
+                <div class="stat-icon">Live</div>
                 <div>
-                    <div class="stat-value" style="color:#00e5ff;"><?= count($active_trips) ?></div>
-                    <div class="stat-label">Active / Incoming Requests</div>
+                    <div class="stat-value"><?= count($active_trips) ?></div>
+                    <div class="stat-label">Active / incoming requests</div>
                 </div>
             </div>
         </div>
 
-        <!-- ACTIVE & INCOMING TRIPS -->
-        <h2 style="font-size:1.3rem; font-weight:800; margin: 2rem 0 1rem; color:#fff;">
-            ⚡ Active Trips &amp; Assigned Requests
-        </h2>
+        <h2 class="panel-heading">Active trips &amp; assigned requests</h2>
 
         <?php if (empty($active_trips)): ?>
-            <div class="card" style="text-align:center; padding:3rem; color:var(--clr-muted);">
-                <div style="font-size:2.5rem; margin-bottom:0.8rem;">🛵</div>
-                <p>No active ride requests at this moment. Stay online to receive incoming trips!</p>
+            <div class="card empty-state">
+                <div class="empty-icon">—</div>
+                <p>No active ride requests at this moment. Stay online to receive incoming trips.</p>
             </div>
         <?php else: ?>
-            <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(340px, 1fr)); gap:1.2rem;">
+            <div class="trip-grid">
                 <?php foreach ($active_trips as $t): ?>
-                    <div class="card" style="border:1.5px solid rgba(255,170,0,0.3); background:rgba(20,25,35,0.7);">
-                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.8rem;">
-                            <span style="font-size:0.82rem; font-weight:700; color:var(--clr-primary);">
-                                <?= ($t['service_type'] === 'parcel') ? '📦 RYDO PARCEL' : '🛵 ' . strtoupper($t['vehicle_type']) ?>
+                    <div class="card trip-card">
+                        <div class="trip-card-top">
+                            <span class="trip-service">
+                                <?= ($t['service_type'] === 'parcel') ? 'Parcel' : htmlspecialchars($t['vehicle_type']) ?>
                             </span>
                             <span class="badge badge-<?= strtolower($t['status']) ?>">
                                 <?= htmlspecialchars($t['status']) ?>
                             </span>
                         </div>
 
-                        <h3 style="font-size:1.15rem; font-weight:800; margin-bottom:0.4rem; color:#fff;">
-                            <?= htmlspecialchars($t['passenger_name']) ?>
-                        </h3>
-                        <p style="font-size:0.85rem; color:var(--clr-muted); margin-bottom:0.8rem;">
-                            📱 <?= htmlspecialchars($t['phone']) ?> &nbsp;|&nbsp; 📍 <?= htmlspecialchars($t['distance_km']) ?> km
+                        <h3><?= htmlspecialchars($t['passenger_name']) ?></h3>
+                        <p class="trip-meta">
+                            <?= htmlspecialchars($t['phone']) ?> · <?= htmlspecialchars($t['distance_km']) ?> km
                         </p>
 
-                        <div style="background:rgba(255,255,255,0.03); padding:0.8rem; border-radius:8px; margin-bottom:1rem; font-size:0.85rem;">
-                            <div style="margin-bottom:0.3rem;">🟢 <strong>Pickup:</strong> <?= htmlspecialchars($t['pickup']) ?></div>
-                            <div>🔴 <strong>Drop:</strong> <?= htmlspecialchars($t['destination']) ?></div>
+                        <div class="route-box">
+                            <div><strong>Pickup:</strong> <?= htmlspecialchars($t['pickup']) ?></div>
+                            <div><strong>Drop:</strong> <?= htmlspecialchars($t['destination']) ?></div>
                             <?php if ($t['service_type'] === 'parcel'): ?>
-                                <div style="margin-top:0.4rem; color:var(--clr-accent);">
-                                    📦 <strong>Recipient:</strong> <?= htmlspecialchars($t['receiver_name']) ?> (<?= htmlspecialchars($t['receiver_phone']) ?>)
+                                <div>
+                                    <strong>Recipient:</strong> <?= htmlspecialchars($t['receiver_name']) ?> (<?= htmlspecialchars($t['receiver_phone']) ?>)
                                 </div>
                             <?php endif; ?>
                         </div>
 
-                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
-                            <span style="font-size:0.82rem; color:var(--clr-muted);">Captain Net Payout (80%):</span>
-                            <strong style="color:var(--clr-success); font-size:1.1rem;">₹<?= number_format((float)$t['captain_earning'], 2) ?></strong>
+                        <div class="payout-row">
+                            <span>Captain net payout (80%)</span>
+                            <strong>₹<?= number_format((float)$t['captain_earning'], 2) ?></strong>
                         </div>
 
-                        <!-- OTP VERIFICATION TO START TRIP (SRS Section 4.2) -->
                         <?php if ($t['status'] === 'Accepted' || $t['status'] === 'Pending'): ?>
-                            <form method="POST" style="background:rgba(255,170,0,0.06); border:1px dashed var(--clr-primary); border-radius:8px; padding:0.8rem; margin-top:0.6rem;">
+                            <form method="POST" class="otp-form">
                                 <input type="hidden" name="verify_otp_start" value="1">
                                 <input type="hidden" name="booking_id" value="<?= htmlspecialchars($t['booking_id']) ?>">
-                                <label style="font-size:0.75rem; color:var(--clr-primary); margin-bottom:0.4rem;">
-                                    🔒 Enter Passenger's 4-Digit PIN to Start:
-                                </label>
-                                <div style="display:flex; gap:0.5rem;">
-                                    <input type="text" name="otp_pin" class="form-control" placeholder="4-digit PIN" maxlength="4" style="text-align:center; letter-spacing:0.2em; font-weight:800; padding:0.4rem;" required>
-                                    <button type="submit" class="btn btn-primary btn-sm" style="width:auto; white-space:nowrap;">
-                                        ⚡ Start Trip
-                                    </button>
+                                <label>Enter passenger 4-digit PIN to start</label>
+                                <div class="otp-form-row">
+                                    <input type="text" name="otp_pin" class="form-control otp-input" placeholder="PIN" maxlength="4" required>
+                                    <button type="submit" class="btn btn-primary btn-sm">Start trip</button>
                                 </div>
                             </form>
                         <?php elseif ($t['status'] === 'In_Progress'): ?>
-                            <form method="POST" style="margin-top:0.6rem;">
+                            <form method="POST">
                                 <input type="hidden" name="complete_trip" value="1">
                                 <input type="hidden" name="booking_id" value="<?= htmlspecialchars($t['booking_id']) ?>">
-                                <button type="submit" class="btn btn-success" style="width:100%;">
-                                    🏁 Complete Trip / Confirm Delivery
+                                <button type="submit" class="btn btn-success btn-block">
+                                    Complete trip / confirm delivery
                                 </button>
                             </form>
                         <?php endif; ?>
@@ -279,6 +258,50 @@ unset($_SESSION['cap_flash'], $_SESSION['cap_error']);
                 <?php endforeach; ?>
             </div>
         <?php endif; ?>
+
+        <h2 class="panel-heading">Recent trip history</h2>
+        <div class="card card--flush">
+            <div class="table-wrap">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Booking ID</th>
+                            <th>Service</th>
+                            <th>Passenger</th>
+                            <th>Route</th>
+                            <th>Payout</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php if (empty($completed_trips)): ?>
+                            <tr>
+                                <td colspan="6" class="empty-row">No completed trips yet.</td>
+                            </tr>
+                        <?php else: ?>
+                            <?php foreach ($completed_trips as $h): ?>
+                            <tr>
+                                <td>
+                                    <a class="booking-id" href="../confirmation.php?bid=<?= urlencode($h['booking_id']) ?>">
+                                        <?= htmlspecialchars($h['booking_id']) ?>
+                                    </a>
+                                </td>
+                                <td><?= ($h['service_type'] === 'parcel') ? 'Parcel' : htmlspecialchars($h['vehicle_type']) ?></td>
+                                <td><?= htmlspecialchars($h['passenger_name']) ?></td>
+                                <td><?= htmlspecialchars($h['pickup']) ?> → <?= htmlspecialchars($h['destination']) ?></td>
+                                <td>₹<?= number_format((float)$h['captain_earning'], 2) ?></td>
+                                <td>
+                                    <span class="badge badge-<?= strtolower($h['status']) ?>">
+                                        <?= htmlspecialchars($h['status']) ?>
+                                    </span>
+                                </td>
+                            </tr>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
 
     </div>
 </div>

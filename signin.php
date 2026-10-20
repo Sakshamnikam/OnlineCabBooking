@@ -60,14 +60,52 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 ?>
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Create Account | RYDO</title><link rel="stylesheet" href="assets/css/style.css"><style>
-.auth-page{min-height:100vh;display:grid;place-items:center;padding:24px;background:radial-gradient(circle at top,rgba(255,170,0,.12),transparent 55%),var(--clr-bg)}.auth-card{width:100%;max-width:470px;padding:clamp(24px,5vw,40px);background:var(--clr-surface);border:1px solid var(--clr-border);border-radius:var(--radius-lg);box-shadow:var(--shadow)}.auth-brand{text-align:center;font-size:1.6rem;font-weight:800;margin-bottom:18px}.auth-brand span{color:var(--clr-primary)}.auth-card h1{text-align:center;margin-bottom:8px}.auth-sub{text-align:center;color:var(--clr-muted);margin-bottom:24px}.auth-card label{display:block;margin:0 0 7px;font-weight:600}.auth-card .form-control{width:100%;margin-bottom:14px}.auth-card .btn-primary{width:100%;display:block;cursor:pointer}.auth-error{padding:12px;margin-bottom:16px;border:1px solid rgba(255,51,102,.4);border-radius:8px;color:#ff8ba8;background:rgba(255,51,102,.09)}.auth-foot{text-align:center;margin-top:20px;color:var(--clr-muted);font-size:.9rem}
-</style></head><body><main class="auth-page"><section class="auth-card"><div class="auth-brand">⚡ <span>RYDO</span></div><h1>Create your account</h1><p class="auth-sub">Sign up once, then log in whenever you return.</p>
-<?php if ($error !== ''): ?><div class="auth-error" role="alert"><?= htmlspecialchars($error, ENT_QUOTES, 'UTF-8') ?></div><?php endif; ?>
-<form method="post" action="signin.php"><input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['signup_csrf'], ENT_QUOTES, 'UTF-8') ?>">
-<label for="full_name">Full name</label><input class="form-control" id="full_name" name="full_name" type="text" maxlength="100" autocomplete="name" value="<?= htmlspecialchars($name, ENT_QUOTES, 'UTF-8') ?>" required>
-<label for="email">Email address</label><input class="form-control" id="email" name="email" type="email" maxlength="150" autocomplete="email" value="<?= htmlspecialchars($email, ENT_QUOTES, 'UTF-8') ?>" required>
-<label for="phone">Phone (optional)</label><input class="form-control" id="phone" name="phone" type="tel" maxlength="20" autocomplete="tel" value="<?= htmlspecialchars($phone, ENT_QUOTES, 'UTF-8') ?>">
-<label for="password">Password (at least 6 characters)</label><input class="form-control" id="password" name="password" type="password" minlength="6" autocomplete="new-password" required>
-<label for="confirm_password">Confirm password</label><input class="form-control" id="confirm_password" name="confirm_password" type="password" minlength="6" autocomplete="new-password" required>
-<button class="btn btn-primary" type="submit">Create Account</button></form><p class="auth-foot">Already have an account? <a href="login.php">Log in</a></p></section></main></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Create Account | RYDO</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+<main class="auth-page">
+<section class="auth-card">
+    <div class="auth-brand"><span>RYDO</span></div>
+    <h1>Create your account</h1>
+    <p class="auth-sub">Sign up once, then log in whenever you return.</p>
+
+    <?php if ($error !== ''): ?>
+        <div class="alert alert-error" role="alert"><?= htmlspecialchars($error, ENT_QUOTES, 'UTF-8') ?></div>
+    <?php endif; ?>
+
+    <form method="post" action="signin.php">
+        <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['signup_csrf'], ENT_QUOTES, 'UTF-8') ?>">
+
+        <div class="form-group">
+            <label for="full_name">Full name</label>
+            <input class="form-control" id="full_name" name="full_name" type="text" maxlength="100" autocomplete="name" value="<?= htmlspecialchars($name, ENT_QUOTES, 'UTF-8') ?>" required>
+        </div>
+        <div class="form-group">
+            <label for="email">Email address</label>
+            <input class="form-control" id="email" name="email" type="email" maxlength="150" autocomplete="email" value="<?= htmlspecialchars($email, ENT_QUOTES, 'UTF-8') ?>" required>
+        </div>
+        <div class="form-group">
+            <label for="phone">Phone (optional)</label>
+            <input class="form-control" id="phone" name="phone" type="tel" maxlength="20" autocomplete="tel" value="<?= htmlspecialchars($phone, ENT_QUOTES, 'UTF-8') ?>">
+        </div>
+        <div class="form-group">
+            <label for="password">Password (at least 6 characters)</label>
+            <input class="form-control" id="password" name="password" type="password" minlength="6" autocomplete="new-password" required>
+        </div>
+        <div class="form-group">
+            <label for="confirm_password">Confirm password</label>
+            <input class="form-control" id="confirm_password" name="confirm_password" type="password" minlength="6" autocomplete="new-password" required>
+        </div>
+        <button class="btn btn-primary" type="submit">Create Account</button>
+    </form>
+    <p class="auth-foot">Already have an account? <a href="login.php">Log in</a></p>
+</section>
+</main>
+</body>
+</html>

@@ -86,25 +86,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Login | RYDO</title>
 <link rel="stylesheet" href="assets/css/style.css">
-<style>
-.auth-page{min-height:100vh;display:grid;place-items:center;padding:24px;background:radial-gradient(circle at top,rgba(255,170,0,.12),transparent 55%),var(--clr-bg)}
-.auth-card{width:100%;max-width:470px;padding:clamp(24px,5vw,40px);background:var(--clr-surface);border:1px solid var(--clr-border);border-radius:var(--radius-lg);box-shadow:var(--shadow)}
-.auth-brand{text-align:center;font-size:1.6rem;font-weight:800;margin-bottom:18px}.auth-brand span{color:var(--clr-primary)}
-.auth-card h1{text-align:center;margin-bottom:8px}.auth-sub{text-align:center;color:var(--clr-muted);margin-bottom:24px}
-.auth-card label{display:block;margin:0 0 7px;font-weight:600}.auth-card .form-control{width:100%;margin-bottom:16px}
-.auth-card .btn-primary{width:100%;display:block;cursor:pointer}.auth-error{padding:12px;margin-bottom:16px;border:1px solid rgba(255,51,102,.4);border-radius:8px;color:#ff8ba8;background:rgba(255,51,102,.09)}
-.auth-foot{text-align:center;margin-top:20px;color:var(--clr-muted);font-size:.9rem}.auth-switch{display:flex;gap:8px;margin-bottom:20px}.auth-switch label{flex:1;text-align:center;padding:11px;border:1px solid var(--clr-border);border-radius:9px;cursor:pointer;margin:0}.auth-switch input{margin-right:6px}
-</style>
 </head>
 <body>
 <main class="auth-page">
 <section class="auth-card">
-    <div class="auth-brand">⚡ <span>RYDO</span></div>
+    <div class="auth-brand"><span>RYDO</span></div>
     <h1>Welcome back</h1>
     <p class="auth-sub">Log in to continue with your rides.</p>
 
     <?php if ($error !== ''): ?>
-        <div class="auth-error" role="alert"><?= htmlspecialchars($error, ENT_QUOTES, 'UTF-8') ?></div>
+        <div class="alert alert-error" role="alert"><?= htmlspecialchars($error, ENT_QUOTES, 'UTF-8') ?></div>
     <?php endif; ?>
 
     <form method="post" action="login.php">
@@ -128,6 +119,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <button class="btn btn-primary" type="submit">Log In</button>
     </form>
     <p class="auth-foot">Don't have a customer account? <a href="signin.php">Sign in / Create account</a></p>
+    <p class="auth-foot"><a href="captain/login.php">Captain partner login</a></p>
 </section>
 </main>
 <script>

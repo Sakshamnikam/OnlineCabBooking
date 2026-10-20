@@ -124,10 +124,10 @@
         if (hiddenFare) hiddenFare.value = fare.toFixed(2);
 
         const vehicleLabels = {
-            Bike: '🛵 RYDO Bike Taxi',
-            Auto: '🛺 RYDO Auto',
-            Cab:  '🚗 RYDO Prime Cab',
-            Parcel: '📦 RYDO Parcel Delivery'
+            Bike: 'Bike taxi',
+            Auto: 'Auto',
+            Cab:  'Cab',
+            Parcel: 'Parcel delivery'
         };
 
         farePreview.innerHTML = `
@@ -140,7 +140,7 @@
                 Duration: <strong>~${Math.round(distance * 3.2)} mins</strong>
             </div>
             <div class="fare-note">
-                🛡️ Fares are estimates. 4-digit ride verification OTP will be issued on confirmation.
+                Fares are estimates. A 4-digit verification PIN is issued on confirmation.
             </div>
         `;
     }
@@ -212,7 +212,7 @@
             const submitBtn = bookingForm.querySelector('button[type="submit"]');
             if (submitBtn) {
                 submitBtn.disabled = true;
-                submitBtn.innerHTML = '<span>⚡ Processing Booking…</span>';
+                submitBtn.innerHTML = '<span>Processing booking…</span>';
             }
         });
     }

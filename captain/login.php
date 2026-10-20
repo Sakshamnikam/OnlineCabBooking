@@ -61,8 +61,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Captain Login — RYDO</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../assets/css/style.css">
 </head>
 <body class="admin-body">
@@ -70,12 +68,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <div class="login-wrapper">
     <div class="card login-card">
 
-        <div class="login-logo">🛵</div>
-        <h1 class="login-title">RYDO Captain Login</h1>
-        <p class="login-sub">Partner Portal — accept trips &amp; track earnings</p>
+        <div class="login-logo">RYDO</div>
+        <h1 class="login-title">Captain login</h1>
+        <p class="login-sub">Partner portal — accept trips and track earnings</p>
 
         <?php if ($error): ?>
-            <div class="alert alert-error" role="alert">⚠️ <?= htmlspecialchars($error) ?></div>
+            <div class="alert alert-error" role="alert"><?= htmlspecialchars($error) ?></div>
         <?php endif; ?>
 
         <form action="login.php" method="POST" id="captain-login-form">
@@ -95,13 +93,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                        autocomplete="off" required>
             </div>
 
-            <button type="submit" class="btn btn-primary" style="margin-top:.5rem;">
-                🔐 Log In to Captain App
+            <button type="submit" class="btn btn-primary btn-block">
+                Log in to Captain App
             </button>
         </form>
 
-        <p style="margin-top:1rem;text-align:center;">
-            <a href="../index.php" style="font-size:.85rem;">← Back to Booking Page</a>
+        <p class="auth-foot">
+            <a href="../index.php">Back to booking page</a>
         </p>
 
     </div>

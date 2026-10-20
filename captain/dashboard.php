@@ -5,11 +5,20 @@
  */
 
 if (session_status() === PHP_SESSION_NONE) session_start();
+
+// Require a logged-in captain — previously this page trusted ?cid= from the
+// URL with no login at all, so it always fell back to Captain #1 (Vikram
+// Patil) and anyone could view or act on any captain's trips by editing
+// the URL.
+if (empty($_SESSION['captain_id'])) {
+    header('Location: login.php');
+    exit;
+}
+
 require_once __DIR__ . '/../config/db.php';
 $pdo = getDB();
 
-// Default to Captain #1 (Vikram Patil) or allow switcher
-$captain_id = intval($_GET['cid'] ?? 1);
+$captain_id = (int)$_SESSION['captain_id'];
 
 // Handle Online / Offline toggle
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['toggle_online'])) {
@@ -17,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['toggle_online'])) {
     $upd = $pdo->prepare('UPDATE captains SET is_online = ? WHERE id = ?');
     $upd->execute([$new_status, $captain_id]);
     $_SESSION['cap_flash'] = "Status updated to: " . ($new_status ? "🟢 Online & Receiving Trips" : "⚪ Offline");
-    header("Location: dashboard.php?cid={$captain_id}");
+    header("Location: dashboard.php");
     exit;
 }
 
@@ -37,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['verify_otp_start'])) 
     } else {
         $_SESSION['cap_error'] = "❌ Invalid 4-Digit PIN. Please ask the passenger for the correct code.";
     }
-    header("Location: dashboard.php?cid={$captain_id}");
+    header("Location: dashboard.php");
     exit;
 }
 
@@ -59,7 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['complete_trip'])) {
     $upd_earn->execute([$earning, $captain_id]);
 
     $_SESSION['cap_flash'] = "🏁 Trip completed! ₹{$earning} credited to your Captain wallet (80% net payout).";
-    header("Location: dashboard.php?cid={$captain_id}");
+    header("Location: dashboard.php");
     exit;
 }
 
@@ -69,10 +78,11 @@ $cap_stmt->execute([$captain_id]);
 $captain = $cap_stmt->fetch();
 
 if (!$captain) {
-    // Fallback to first available captain
-    $cap_stmt = $pdo->query('SELECT * FROM captains ORDER BY id ASC LIMIT 1');
-    $captain = $cap_stmt->fetch();
-    $captain_id = $captain ? $captain['id'] : 1;
+    // The session points at a captain row that no longer exists — don't
+    // silently fall back to a different captain's dashboard, log out instead.
+    session_destroy();
+    header('Location: login.php');
+    exit;
 }
 
 // Fetch active & pending bookings for this captain or general pool
@@ -116,8 +126,10 @@ unset($_SESSION['cap_flash'], $_SESSION['cap_error']);
             <span style="font-weight:800; font-size:1.2rem; color:#fff;">RYDO Captain Partner</span>
         </div>
         <div style="display:flex; align-items:center; gap:1rem;">
+            <span style="font-size:0.85rem; color:var(--clr-muted);">Hi, <?= htmlspecialchars($captain['name']) ?></span>
             <a href="../index.php" class="btn btn-secondary btn-sm">🏠 Rider App</a>
-            <a href="../admin/login.php" class="btn btn-secondary btn-sm">🔒 Admin Panel</a>
+            <a href="../login.php?role=admin" class="btn btn-secondary btn-sm">🔒 Admin Panel</a>
+            <a href="logout.php" class="btn btn-secondary btn-sm">🚪 Log Out</a>
         </div>
     </div>
 </nav>
